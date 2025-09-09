@@ -1,45 +1,20 @@
 package com.example.data
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.data.dao.GpuInsightDao
-import com.example.data.model.*
+import com.example.data.model.AuditEvent
+import com.example.data.model.GpuMetric
 
 @Database(
-    entities = [
-        ClusterNodeEntity::class,
-        GpuEntity::class,
-        MetricTelemetryEntity::class,
-        ProcessEntity::class,
-        AlertRuleEntity::class,
-        AuditLogEntity::class,
-        ReportEntity::class
-    ],
-    version = 1,
-    exportSchema = false
+    entities     = [GpuMetric::class, AuditEvent::class],
+    version      = 1,
+    exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
-
     abstract fun gpuInsightDao(): GpuInsightDao
 
     companion object {
-        @Volatile
-        private var INSTANCE: AppDatabase? = null
-
-        fun getDatabase(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "gpu_insight_database"
-                )
-                .fallbackToDestructiveMigration()
-                .build()
-                INSTANCE = instance
-                instance
-            }
-        }
+        const val NAME = "gpu_insight.db"
     }
 }
