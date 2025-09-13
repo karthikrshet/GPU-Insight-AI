@@ -1,38 +1,32 @@
 package com.example.domain
 
-import com.example.data.model.GpuEntity
-import com.example.data.model.MetricTelemetryEntity
-import com.example.data.model.ProcessEntity
+import com.example.data.GpuInsightRepository
+import com.example.data.model.GpuMetric
+import com.example.network.GeminiApiService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-/**
- * Clean Architecture Domain UseCases for GPU Insight AI
- */
-
-interface GetGpuTelemetryUseCase {
-    suspend operator fun invoke(gpuId: String): Flow<List<MetricTelemetryEntity>>
+class GetGpuMetricsUseCase @Inject constructor(
+    private val repository: GpuInsightRepository
+) {
+    operator fun invoke(): Flow<List<GpuMetric>> = repository.getRecentMetrics()
 }
 
-interface SyncRemoteAgentGpuUseCase {
-    suspend operator fun invoke(agentEndpoint: String): Result<Boolean>
+class GetGpuHealthUseCase @Inject constructor(
+    private val repository: GpuInsightRepository
+) {
+    operator fun invoke(gpuId: Int): Flow<GpuHealth> =
+        repository.getMetricsForGpu(gpuId).map { metrics ->
+            metrics.firstOrNull()?.let { GpuHealthCalculator.calculate(it) } ?: GpuHealth.UNKNOWN
+        }
 }
 
-interface AnalyzeGpuStacktraceUseCase {
-    suspend operator fun invoke(stacktrace: String, promptTemplate: String): String
+class AnalyzeGpuErrorUseCase @Inject constructor(
+    private val geminiService: GeminiApiService
+) {
+    suspend operator fun invoke(stackTrace: String): Result<String> =
+        geminiService.analyzeGpuError(stackTrace)
 }
 
-interface TerminateGpuProcessUseCase {
-    suspend operator fun invoke(gpuId: String, pid: Int, mfaToken: String): Result<Boolean>
-}
-
-/**
- * Client-Server Remote GPU Agent Connection Config
- */
-data class RemoteGpuAgentConfig(
-    val agentId: String,
-    val host: String,
-    val port: Int,
-    val useTls: Boolean = true,
-    val apiKey: String? = null,
-    val syncIntervalMs: Long = 1000L
-)
+enum class GpuHealth { HEALTHY, WARNING, CRITICAL, UNKNOWN }
