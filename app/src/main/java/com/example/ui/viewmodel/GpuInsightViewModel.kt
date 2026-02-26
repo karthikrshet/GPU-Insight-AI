@@ -2,6 +2,7 @@ package com.example.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.data.TelemetryPoller
 import com.example.data.model.GpuMetric
 import com.example.domain.*
 import kotlinx.coroutines.flow.*
@@ -19,14 +20,19 @@ data class GpuInsightUiState(
 )
 
 class GpuInsightViewModel @Inject constructor(
-    private val getMetrics:   GetGpuMetricsUseCase,
-    private val analyzeError: AnalyzeGpuErrorUseCase
+    private val getMetrics:      GetGpuMetricsUseCase,
+    private val analyzeError:    AnalyzeGpuErrorUseCase,
+    private val telemetryPoller: TelemetryPoller
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GpuInsightUiState())
     val uiState: StateFlow<GpuInsightUiState> = _uiState.asStateFlow()
 
-    init { observeMetrics() }
+    init {
+        observeMetrics()
+        telemetryPoller.startPolling(viewModelScope)
+        _uiState.update { it.copy(isPolling = true) }
+    }
 
     private fun observeMetrics() = viewModelScope.launch {
         getMetrics()
@@ -43,4 +49,9 @@ class GpuInsightViewModel @Inject constructor(
     }
 
     fun selectGpu(gpuId: Int) = _uiState.update { it.copy(selectedGpuId = gpuId) }
+
+    override fun onCleared() {
+        super.onCleared()
+        telemetryPoller.stopPolling()
+    }
 }
