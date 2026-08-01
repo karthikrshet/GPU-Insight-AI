@@ -8,51 +8,54 @@
 [![Gemini AI](https://img.shields.io/badge/AI-Google_Gemini_Pro-orange.svg)](https://ai.google.dev/)
 [![CI](https://github.com/karthikrshet/GPU-Insight-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/karthikrshet/GPU-Insight-AI/actions)
 
-**GPU Insight AI** is the world's premier open-source AI-native GPU Infrastructure platform and mobile diagnostic companion. Designed for AI engineers, ML researchers, DevOps teams, and GPU enthusiasts to monitor, diagnose, benchmark, optimize, and secure high-performance GPU clusters (NVIDIA NVLink/Fabric, AMD ROCm, Intel Gaudi) directly from Android.
+**GPU Insight AI** is the world's premier open-source AI-native GPU Infrastructure platform and mobile diagnostic companion. Designed for AI engineers, ML researchers, DevOps teams, and GPU enthusiasts to monitor, diagnose, benchmark, optimize, and secure high-performance GPU clusters (NVIDIA NVLink/Fabric, AMD ROCm) directly from Android.
 
 ---
 
 ## Key Features
 
-### 1. Sub-Second Real-Time GPU Telemetry
-- 500ms sampling of utilization, VRAM, TDP, fan speed, clock frequencies, junction temperatures
-- NVIDIA NVLink 4.0 bandwidth metrics, PCIe Gen 4/5 throughput, MIG partition health
+### Sub-Second Real-Time GPU Telemetry
+- 500ms sampling of utilization, VRAM, TDP, fan speed, core clocks, junction temperatures
+- NVIDIA NVLink 4.0 bandwidth, PCIe Gen4/5 throughput, MIG partition health
 - DCGM field parsing with ECC SBE/DBE error monitoring
 
-### 2. Gemini AI Debug Assistant & OOM Troubleshooter
-- Stack trace diagnosis for torch.OutOfMemoryError, CUDA illegal access, NCCL timeouts
-- Privacy-first secret redaction (AWS keys, Bearer tokens, internal IPs)
+### Gemini AI Debug Assistant & OOM Troubleshooter
+- Diagnoses torch.OutOfMemoryError, CUDA illegal access, NCCL timeouts
+- Privacy-first: auto-redacts AWS keys, Bearer tokens, internal IPs before API calls
+- Smart OOM parser with framework detection (PyTorch, TensorFlow, JAX)
 
-### 3. Zero-Trust Security & RBAC Audit Logs
+### Zero-Trust Security & RBAC
 - 5-tier RBAC: OWNER, ADMIN, OPERATOR, VIEWER, AUDITOR
-- SHA-256 hash chain audit event log for compliance
+- SHA-256 hash chain audit log for compliance
 
-### 4. WorkManager Thermal Background Daemon
-- Persistent thermal alerts even when app is closed
-- Chaos Engineering: synthetic thermal/OOM simulation
+### WorkManager Thermal Daemon + Chaos Engineering
+- Persistent thermal alerts (even when app is closed)
+- Synthetic thermal/OOM chaos simulation
 
-### 5. Executive Reports & Carbon Metrics
-- Markdown/PDF executive report generator
-- Carbon footprint tracking (kg CO2e, kWh, cost)
+### Executive Reports & Carbon Metrics
+- Markdown/PDF generator with CO2 and kWh tracking
 
-### 6. Advanced NVIDIA Features
-- NVLink topology visualizer | Tensor Parallelism Advisor
-- MIG partition manager | InfiniBand health monitor
-- ECC error assessment | PCIe Gen4/5 bottleneck detection
+### Advanced NVIDIA Features
+- Tensor Parallelism Advisor (TP/PP for LLM deployment)
+- NVLink topology visualizer | MIG partition tracker
+- InfiniBand link health | ECC error assessment
+- VRAM defrag advisor | GPU spec database (H100, A100, L40S, H200)
+- Triton Inference Server health checker
 
 ---
 
 ## Architecture
-- **UI**: Jetpack Compose + Material3, animated gauges, Canvas heatmaps
-- **State**: MVVM + StateFlow + debounce for perf
+- **UI**: Jetpack Compose, Material3, animated Canvas charts
+- **State**: MVVM + StateFlow + 200ms debounce
 - **Data**: Room DB, DataStore, OkHttp
-- **DI**: Hilt
-- **Background**: WorkManager with exponential backoff
+- **DI**: Hilt | **Background**: WorkManager + exponential backoff
+- **CI/CD**: GitHub Actions
 
 ## Getting Started
 ```bash
 git clone https://github.com/karthikrshet/GPU-Insight-AI.git
 cd GPU-Insight-AI
+cp .env.example local.properties  # add your GEMINI_API_KEY
 ./gradlew assembleDebug
 ./gradlew test
 ```
