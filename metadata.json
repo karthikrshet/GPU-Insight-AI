@@ -1,6 +1,21 @@
 {
-  "name": "GPU Insight AI",
-  "description": "Open-source AI platform for GPU monitoring, performance analysis, security audit logs, and AI optimization.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "project": "GPU Insight AI",
+  "version": "1.2.0",
+  "author": "Karthik Rajesh Shet",
+  "github": "https://github.com/karthikrshet/GPU-Insight-AI",
+  "license": "Apache-2.0",
+  "platform": "Android",
+  "language": "Kotlin",
+  "minSdk": 26,
+  "targetSdk": 35,
+  "architecture": "MVVM + Clean Architecture + Hilt",
+  "ai": "Google Gemini Pro",
+  "database": "Room + DataStore",
+  "background": "WorkManager",
+  "features": [
+    "GPU Telemetry", "Gemini AI", "RBAC", "NVLink", "DCGM", "MIG",
+    "Chaos Engineering", "Carbon Tracking", "Tensor Parallelism", "Triton"
+  ],
+  "created": "2025-09-02",
+  "lastUpdated": "2026-08-02"
 }
