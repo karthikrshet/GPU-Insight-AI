@@ -1,0 +1,6 @@
+{
+  "name": "GPU Insight AI",
+  "description": "Open-source AI platform for GPU monitoring, performance analysis, security audit logs, and AI optimization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

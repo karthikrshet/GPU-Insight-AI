@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Outer GPU Chip Pins -->
+    <!-- Top Pins -->
+    <path android:fillColor="#D0BCFF" android:pathData="M38,22h4v8h-4z M46,22h4v8h-4z M54,22h4v8h-4z M62,22h4v8h-4z M70,22h4v8h-4z" />
+    <!-- Bottom Pins -->
+    <path android:fillColor="#D0BCFF" android:pathData="M38,78h4v8h-4z M46,78h4v8h-4z M54,78h4v8h-4z M62,78h4v8h-4z M70,78h4v8h-4z" />
+    <!-- Left Pins -->
+    <path android:fillColor="#D0BCFF" android:pathData="M22,38h8v4h-8z M22,46h8v4h-8z M22,54h8v4h-8z M22,62h8v4h-8z M22,70h8v4h-8z" />
+    <!-- Right Pins -->
+    <path android:fillColor="#D0BCFF" android:pathData="M78,38h8v4h-8z M78,46h8v4h-8z M78,54h8v4h-8z M78,62h8v4h-8z M78,70h8v4h-8z" />
+
+    <!-- Main GPU Body / Substrate -->
+    <path
+        android:fillColor="#2B2930"
+        android:strokeColor="#381E72"
+        android:strokeWidth="2"
+        android:pathData="M30,30h48v48h-48z" />
+
+    <!-- GPU Core Die -->
+    <path
+        android:fillColor="#1D1B20"
+        android:strokeColor="#D0BCFF"
+        android:strokeWidth="2.5"
+        android:pathData="M38,38h32v32h-32z" />
+
+    <!-- AI Core Spark / Circuit Nodes inside Die -->
+    <path
+        android:strokeColor="#EADDFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M46,46L54,54 M54,54L62,46 M54,54L54,62 M46,62L54,54 M62,62L54,54" />
+
+    <!-- Glowing Nodes -->
+    <path android:fillColor="#D0BCFF" android:pathData="M44,44m-2.5,0a2.5,2.5 0 1,1 5,0a2.5,2.5 0 1,1 -5,0" />
+    <path android:fillColor="#D0BCFF" android:pathData="M64,44m-2.5,0a2.5,2.5 0 1,1 5,0a2.5,2.5 0 1,1 -5,0" />
+    <path android:fillColor="#EADDFF" android:pathData="M54,54m-3,0a3,3 0 1,1 6,0a3,3 0 1,1 -6,0" />
+    <path android:fillColor="#F2B8B5" android:pathData="M44,64m-2.5,0a2.5,2.5 0 1,1 5,0a2.5,2.5 0 1,1 -5,0" />
+    <path android:fillColor="#F2B8B5" android:pathData="M64,64m-2.5,0a2.5,2.5 0 1,1 5,0a2.5,2.5 0 1,1 -5,0" />
+
+</vector>
