@@ -1,4 +1,3 @@
-# GPU Insight AI 🚀
 
 <div align="center">
 
